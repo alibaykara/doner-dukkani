@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /admin
+Disallow: /admin-panel
+Disallow: /internal/
+Disallow: /api/debug
+Disallow: /api/env
+Disallow: /backup/
+Disallow: /.env
+Disallow: /server/
+Disallow: /graphql
+
+Sitemap: https://doner-dukkani.com/sitemap.xml

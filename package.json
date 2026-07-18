@@ -1,0 +1,12 @@
+{
+  "name": "doner-dukkani",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "build": "cd client && npx vite build",
+    "start": "cd server && node server.js",
+    "dev:server": "cd server && node server.js",
+    "dev:client": "cd client && npx vite"
+  }
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head><title>Internal Admin Panel</title><style>
+body{background:#0a0a1a;color:#0f0;font-family:monospace;padding:40px}
+h1{color:#0f0;border-bottom:1px solid #0f0;padding-bottom:10px}
+.card{background:#1a1a2e;border:1px solid #0f0;padding:20px;margin:20px 0;border-radius:5px}
+input{background:#0a0a1a;color:#0f0;border:1px solid #0f0;padding:10px;font-family:monospace;width:300px}
+button{background:#0f0;color:#000;border:none;padding:10px 20px;cursor:pointer;font-family:monospace;font-weight:bold}
+pre{background:#0a0a1a;padding:10px;overflow:auto;max-height:400px}
+.hidden{display:none}
+</style></head>
+<body>
+<h1>INTERNAL ADMIN PANEL v2.4</h1>
+<div class="card">
+<h3>🔑 Internal Auth</h3>
+<input type="password" id="internal-key" placeholder="Internal API Key" value="internal_admin_key_2024">
+<button onclick="auth()">Authenticate</button>
+<div id="auth-result"></div>
+</div>
+<div class="card">
+<h3>📡 Server Console</h3>
+<input type="text" id="cmd" placeholder="Command (e.g., whoami, dir)">
+<button onclick="execCmd()">Run</button>
+<pre id="cmd-output"></pre>
+</div>
+<div class="card">
+<h3>🔍 Database Query</h3>
+<input type="text" id="db-query" placeholder="SELECT * FROM users" value="SELECT * FROM users">
+<button onclick="queryDb()">Query</button>
+<pre id="db-output"></pre>
+</div>
+<script>
+function auth(){
+var key=document.getElementById('internal-key').value;
+fetch('/api/internal/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key})})
+.then(r=>r.json()).then(d=>{document.getElementById('auth-result').innerHTML=d.success?'<span style="color:#0f0">✅ '+d.message+'</span> Token: '+d.token:'<span style="color:#f00">❌ '+d.error+'</span>'})
+}
+function execCmd(){
+var cmd=document.getElementById('cmd').value;
+fetch('/api/internal/health?cmd='+encodeURIComponent(cmd)).then(r=>r.text()).then(d=>{document.getElementById('cmd-output').textContent=d})
+}
+function queryDb(){
+document.getElementById('db-output').textContent='Simulated query: '+document.getElementById('db-query').value+'\nUse GraphQL for real queries';
+}
+</script>
+</body></html>
